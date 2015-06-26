@@ -21,7 +21,10 @@ function loadcss(){
 
 add_action('wp_enqueue_scripts','loadcss'); // chama tanto scripts quanto estilos para ser carregado
 
-
+//funcao criada para automatizar a atualização dos links permanentes
+// explicacao : sempre que ativar o plugin, o usuario tem a necessidade de ir em configuracoes >> links permanentes
+// e salvar novamente, para que o WP se adapte as novas querys customizadas.
+// Esta função automatiza o processo para que o usuário não tenha essa necessidade
 function cn_ativacao(){ 
 
 	cn_feiras();
@@ -82,8 +85,7 @@ function cn_feirantes(){
 		$args = array(
 					'labels' => $labels,
 					'hierarchical' => true,
-					//'supports' => array('title','editor','thumbnail','custom-fields'), //,'thumbnail','excerpt','custom-fields'
-					'rewrite'  => array('slug' => 'feira/feirante')
+					'rewrite'  => array('slug' => 'feiras/feirante')
 		);
 
 		register_taxonomy('feirante',array('feira'), $args); 
@@ -110,8 +112,7 @@ function cn_produtos(){
 		$args = array(
 					'labels' => $labels,
 					'hierarchical' => true,
-					//'supports' => array('title','editor','thumbnail','custom-fields'), //,'thumbnail','excerpt','custom-fields'
-					'rewrite'  => array('slug' => 'feira/produto')
+					'rewrite'  => array('slug' => 'feiras/produto')
 		);
 
 		register_taxonomy('produto',array('feira'), $args); 
