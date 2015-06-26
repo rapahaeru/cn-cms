@@ -22,7 +22,7 @@ function loadcss(){
 add_action('wp_enqueue_scripts','loadcss'); // chama tanto scripts quanto estilos para ser carregado
 
 
-function cn_ativacao(){
+function cn_ativacao(){ 
 
 	cn_feiras();
 	cn_feirantes();
