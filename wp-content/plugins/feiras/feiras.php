@@ -25,6 +25,8 @@ add_action('wp_enqueue_scripts','loadcss'); // chama tanto scripts quanto estilo
 function cn_ativacao(){
 
 	cn_feiras();
+	cn_feirantes();
+	cn_produtos();
 	flush_rewrite_rules(); // limpa links permanentes para facilitar a atualização na hora de criar novos post_types
 
 }
@@ -33,7 +35,7 @@ register_activation_hook(__FILE__,'cn_ativacao');
 
 // NOVO POST TYPE
 
-function cn_feiras (){
+function cn_feiras(){
 	$labels = array (
 					'name' 					=> 'Feiras',
 					'singular_name' 		=> 'Feira',
@@ -61,6 +63,65 @@ function cn_feiras (){
 }
 
 add_action('init','cn_feiras');
+
+function cn_feirantes(){
+	$labels = array (
+					'name' 					=> 'Feirantes',
+					'singular_name' 		=> 'Feirante',
+					'add_new_item' 			=> 'Adicionar feirante',
+					'edit_item' 			=> 'Editar feirante',
+					'new_item' 				=> 'Adicionar feirante',
+					'all_items' 			=> 'Todos os feirantes',
+					'view_item' 			=> 'Ver feirantes',
+					'search_items' 			=> 'Procurar feirantes',
+					'not_found' 			=> 'Nenhum feirante encontrado',
+					'not_found_in_trash' 	=> 'Nenhum feirante encontrado na lixeira',
+					'menu_name' 			=> 'Feirantes'
+		);
+
+		$args = array(
+					'labels' => $labels,
+					'hierarchical' => true,
+					//'supports' => array('title','editor','thumbnail','custom-fields'), //,'thumbnail','excerpt','custom-fields'
+					'rewrite'  => array('slug' => 'feira/feirante')
+		);
+
+		register_taxonomy('feirante',array('feira'), $args); 
+}
+
+add_action('init','cn_feirantes');
+
+
+function cn_produtos(){
+	$labels = array (
+					'name' 					=> 'Produtos',
+					'singular_name' 		=> 'Produto',
+					'add_new_item' 			=> 'Adicionar produto',
+					'edit_item' 			=> 'Editar produto',
+					'new_item' 				=> 'Adicionar produto',
+					'all_items' 			=> 'Todos os produtos',
+					'view_item' 			=> 'Ver produtos',
+					'search_items' 			=> 'Procurar produtos',
+					'not_found' 			=> 'Nenhum produto encontrado',
+					'not_found_in_trash' 	=> 'Nenhum produto encontrado na lixeira',
+					'menu_name' 			=> 'Produtos'
+		);
+
+		$args = array(
+					'labels' => $labels,
+					'hierarchical' => true,
+					//'supports' => array('title','editor','thumbnail','custom-fields'), //,'thumbnail','excerpt','custom-fields'
+					'rewrite'  => array('slug' => 'feira/produto')
+		);
+
+		register_taxonomy('produto',array('feira'), $args); 
+}
+
+add_action('init','cn_produtos');
+
+//include the main class file
+//require_once(PATH_PLUGIN . "/lib/Tax-meta-class/Tax-meta-class.php");
+
 
 function cn_custom_to_query($query){
 
